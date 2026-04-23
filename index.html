@@ -4,14 +4,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <meta name="description" content="PostFlow — Crie e publique posts de forma simples e elegante" />
-
     <title>PostFlow — Publicador de Posts</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap"
         rel="stylesheet" />
@@ -27,19 +24,67 @@
                 <span class="logo-icon" aria-hidden="true">✦</span>
                 <span class="logo-text">PostFlow</span>
             </div>
-
-            <p class="header-tagline">
-                Compartilhe suas ideias com o mundo
-            </p>
+            <p class="header-tagline">Compartilhe suas ideias com o mundo</p>
         </div>
     </header>
 
     <main>
-        <p>Em construção...</p>
+        <div class="container">
+
+            <!-- SEÇÃO: FORMULÁRIO -->
+            <section class="secao-form" aria-labelledby="titulo-form">
+                <h2 id="titulo-form" class="secao__titulo">Criar novo post</h2>
+                <p class="secao__subtitulo">Preencha os campos abaixo e publique sua ideia.</p>
+
+                <form class="form-post" id="form-post" novalidate aria-label="Formulário de criação de post">
+
+                    <div class="form__grupo">
+                        <label for="input-titulo" class="form__label">Título do post</label>
+                        <input type="text" id="input-titulo" class="form__input"
+                            placeholder="Digite um título chamativo..." maxlength="100" required aria-required="true"
+                            aria-describedby="titulo-dica" />
+                        <span id="titulo-dica" class="form__dica">Máximo de 100 caracteres.</span>
+                    </div>
+
+                    <div class="form__grupo">
+                        <label for="input-conteudo" class="form__label">Conteúdo</label>
+                        <textarea id="input-conteudo" class="form__textarea"
+                            placeholder="Escreva o conteúdo do seu post aqui..." rows="6" required aria-required="true"
+                            aria-describedby="conteudo-dica"></textarea>
+                        <span id="conteudo-dica" class="form__dica">Escreva o que quiser compartilhar.</span>
+                    </div>
+
+                    <button type="submit" class="btn btn--publicar" id="btn-publicar" aria-label="Publicar post">
+                        <span class="btn__texto">Publicar post</span>
+                    </button>
+
+                </form>
+            </section>
+
+            <!-- SEÇÃO: RENDERIZAÇÃO DO POST -->
+            <section class="secao-post" id="secao-post" aria-labelledby="titulo-resultado" aria-live="polite" hidden>
+                <div class="post-card">
+                    <div class="post-card__cabecalho">
+                        <span class="post-card__badge" aria-hidden="true">✦ Publicado com sucesso</span>
+                    </div>
+
+                    <h2 id="renderizador-titulo" class="post-card__titulo"></h2>
+                    <p id="renderizador-conteudo" class="post-card__conteudo"></p>
+
+                    <footer class="post-card__rodape">
+                        <span class="post-card__meta" id="renderizador-id"
+                            aria-label="ID do post gerado pela API"></span>
+                    </footer>
+                </div>
+            </section>
+
+        </div>
     </main>
 
-    <footer>
-        <p>PostFlow &copy; 2024</p>
+    <footer class="site-footer" role="contentinfo">
+        <div class="container">
+            <p>PostFlow &copy; 2025 — Feito com ✦ e muito JavaScript</p>
+        </div>
     </footer>
 
     <script src="main.js"></script>
