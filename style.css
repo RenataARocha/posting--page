@@ -114,3 +114,194 @@ main {
     color: var(--cinza-medio);
     margin-bottom: 2rem;
 }
+
+
+
+/*  FORMULÁRIO  */
+.secao-form {
+    background-color: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio-lg);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.form__grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+}
+
+.form__label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--cinza-escuro);
+}
+
+.form__input,
+.form__textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid var(--borda);
+    border-radius: var(--raio);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 0.97rem;
+    color: var(--cinza-escuro);
+    background-color: var(--cinza-claro);
+    transition: border-color var(--transicao), box-shadow var(--transicao);
+    outline: none;
+}
+
+.form__input::placeholder,
+.form__textarea::placeholder {
+    color: #a8a3c4;
+}
+
+.form__input:focus,
+.form__textarea:focus {
+    border-color: var(--roxo);
+    box-shadow: 0 0 0 3px rgba(108, 79, 246, 0.12);
+    background-color: var(--branco);
+}
+
+.form__textarea {
+    resize: vertical;
+    min-height: 140px;
+}
+
+.form__dica {
+    font-size: 0.8rem;
+    color: #a8a3c4;
+}
+
+/* Botão publicar */
+.btn--publicar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.85rem 2rem;
+    background-color: var(--roxo);
+    color: var(--branco);
+    border: none;
+    border-radius: var(--raio);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--transicao), transform var(--transicao), opacity var(--transicao);
+}
+
+.btn--publicar:hover {
+    background-color: var(--roxo-escuro);
+    transform: translateY(-2px);
+}
+
+.btn--publicar:active {
+    transform: translateY(0);
+}
+
+.btn--publicar:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* CARD DO POST PUBLICADO */
+.secao-post {
+    animation: entrar 0.4s ease;
+}
+
+@keyframes entrar {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.post-card {
+    background-color: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio-lg);
+    padding: 2rem;
+    border-left: 4px solid var(--roxo);
+}
+
+.post-card__cabecalho {
+    margin-bottom: 1rem;
+}
+
+.post-card__badge {
+    display: inline-block;
+    background-color: var(--roxo-claro);
+    color: var(--roxo-escuro);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+}
+
+.post-card__titulo {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.5rem;
+    color: var(--cinza-escuro);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+}
+
+.post-card__conteudo {
+    font-size: 1rem;
+    color: var(--cinza-medio);
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+}
+
+.post-card__rodape {
+    padding-top: 1rem;
+    border-top: 1px solid var(--borda);
+}
+
+.post-card__meta {
+    font-size: 0.8rem;
+    color: #a8a3c4;
+}
+
+/*  ESTADOS DE FEEDBACK  */
+.form__erro {
+    background-color: #fef2f2;
+    border: 1.5px solid #fca5a5;
+    border-radius: var(--raio);
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    color: var(--vermelho-erro);
+    margin-bottom: 1rem;
+    display: none;
+}
+
+.form__erro.visivel {
+    display: block;
+}
+
+/*  RESPONSIVIDADE  */
+@media (max-width: 600px) {
+    .site-header .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .secao-form,
+    .post-card {
+        padding: 1.5rem;
+    }
+
+    .secao__titulo {
+        font-size: 1.4rem;
+    }
+}
