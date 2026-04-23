@@ -1,9 +1,116 @@
-* {
+/*  POSTFLOW — style.css  */
+
+/* Variáveis */
+:root {
+    --roxo: #6c4ff6;
+    --roxo-escuro: #5038d4;
+    --roxo-claro: #ede9fe;
+    --cinza-escuro: #1e1b2e;
+    --cinza-medio: #4a4560;
+    --cinza-claro: #f5f3ff;
+    --borda: #e4e0f8;
+    --branco: #ffffff;
+    --verde-sucesso: #16a34a;
+    --vermelho-erro: #dc2626;
+    --transicao: 0.3s ease;
+    --raio: 10px;
+    --raio-lg: 16px;
+}
+
+/* Reset */
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: system-ui, sans-serif;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background-color: var(--cinza-claro);
+    color: var(--cinza-escuro);
+    line-height: 1.7;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    padding: 3rem 0;
+}
+
+/* Container */
+.container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* Header */
+.site-header {
+    background-color: var(--branco);
+    border-bottom: 1px solid var(--borda);
+    padding: 1.25rem 0;
+}
+
+.site-header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo-icon {
+    font-size: 1.4rem;
+    color: var(--roxo);
+}
+
+.logo-text {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--cinza-escuro);
+    letter-spacing: -0.02em;
+}
+
+.header-tagline {
+    font-size: 0.9rem;
+    color: var(--cinza-medio);
+}
+
+/* Footer */
+.site-footer {
+    background-color: var(--branco);
+    border-top: 1px solid var(--borda);
+    padding: 1.25rem 0;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--cinza-medio);
+}
+
+/* Seções */
+.secao__titulo {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.75rem;
+    color: var(--cinza-escuro);
+    margin-bottom: 0.4rem;
+}
+
+.secao__subtitulo {
+    font-size: 0.95rem;
+    color: var(--cinza-medio);
+    margin-bottom: 2rem;
 }
