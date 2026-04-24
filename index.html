@@ -31,10 +31,12 @@
     <main>
         <div class="container">
 
-            <!-- SEÇÃO: FORMULÁRIO -->
             <section class="secao-form" aria-labelledby="titulo-form">
                 <h2 id="titulo-form" class="secao__titulo">Criar novo post</h2>
                 <p class="secao__subtitulo">Preencha os campos abaixo e publique sua ideia.</p>
+
+                <!-- Mensagem de erro — aparece via JS -->
+                <div class="form__erro" id="form-erro" aria-live="assertive"></div>
 
                 <form class="form-post" id="form-post" novalidate aria-label="Formulário de criação de post">
 
@@ -61,8 +63,7 @@
                 </form>
             </section>
 
-            <!-- SEÇÃO: RENDERIZAÇÃO DO POST -->
-            <section class="secao-post" id="secao-post" aria-labelledby="titulo-resultado" aria-live="polite" hidden>
+            <section class="secao-post" id="secao-post" aria-labelledby="renderizador-titulo" aria-live="polite" hidden>
                 <div class="post-card">
                     <div class="post-card__cabecalho">
                         <span class="post-card__badge" aria-hidden="true">✦ Publicado com sucesso</span>
