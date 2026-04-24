@@ -1,25 +1,24 @@
 # 🌻 SunFlow — Compartilhe e Floresça
-
 > Uma rede social onde ideias fluem como a luz do sol.
 
 ---
 
-## 📸 Preview
+## 🎥 Preview
 
-![SunFlow](https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200)
+
+https://github.com/user-attachments/assets/5e8407e1-f19e-4483-b3fc-a9044517e487
+
+
 
 ---
 
 ## 📋 Sobre o projeto
-
 O **SunFlow** é uma aplicação web que simula a criação e publicação de posts, consumindo uma API real.
-
 Inspirado em redes sociais como LinkedIn e Facebook, o projeto permite ao usuário criar conteúdos e visualizar seus posts de forma dinâmica — com uma identidade visual leve, moderna e inspirada na energia do girassol 🌻.
 
 ---
 
 ## ⚙️ Como funciona
-
 1. O usuário preenche o **título** e o **conteúdo**
 2. Ao publicar, o JavaScript envia os dados via `fetch` para a API
 3. A API retorna o post com um ID gerado
@@ -29,7 +28,6 @@ Inspirado em redes sociais como LinkedIn e Facebook, o projeto permite ao usuár
 ---
 
 ## 🚀 Funcionalidades
-
 - ✨ Criar posts
 - 💾 Persistência com localStorage
 - ⚡ Renderização dinâmica
@@ -39,9 +37,7 @@ Inspirado em redes sociais como LinkedIn e Facebook, o projeto permite ao usuár
 ---
 
 ## 🧠 Conceito
-
 O nome **SunFlow** representa:
-
 - ☀️ **Sun** → energia, luz, vida
 - 🌊 **Flow** → fluxo de ideias e conexões
 
@@ -50,7 +46,6 @@ O nome **SunFlow** representa:
 ---
 
 ## 🛠 Tecnologias
-
 - **HTML5**
 - **CSS3**
 - **JavaScript (ES6+)**
@@ -60,41 +55,44 @@ O nome **SunFlow** representa:
 ---
 
 ## 📁 Estrutura
-
+```
 posting--page/
 ├── index.html
 ├── style.css
 ├── main.js
 ├── favicon.png
 └── README.md
+```
 
 ---
 
 ## 🔗 API utilizada
-
 https://jsonplaceholder.typicode.com/posts
 
 ---
 
 ## 🚀 Como executar
-
 ```bash
 git clone https://github.com/RenataARocha/posting--page.git
+```
+Abra o `index.html` ou use Live Server.
 
-Abra o index.html ou use Live Server.
+---
 
-🌱 Próximas melhorias
-editar post
-deletar post
-curtir ❤️
-comentários
-backend real (Node.js ou Firebase)
-👩‍💻 Autora
+## 🌱 Próximas melhorias
+- [ ] Editar post
+- [ ] Deletar post
+- [ ] Curtir ❤️
+- [ ] Comentários
+- [ ] Backend real (Node.js ou Firebase)
 
-Renata Rocha
+---
+
+## 👩‍💻 Autora
+**Renata Rocha**
 Front-End Developer em evolução 🚀
 
-💛 SunFlow
+---
 
-Conecte. Compartilhe. Floresça.
-```
+💛 **SunFlow**
+*Conecte. Compartilhe. Floresça.*
