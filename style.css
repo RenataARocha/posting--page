@@ -301,6 +301,25 @@ main {
     gap: 1.5rem;
 }
 
+.logo-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.footer-logo {
+    width: 20px;
+    height: 20px;
+}
+
 /*  RESPONSIVIDADE  */
 @media (max-width: 600px) {
     .site-header .container {
