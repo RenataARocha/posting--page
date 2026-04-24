@@ -232,6 +232,7 @@ main {
     border-radius: var(--raio-lg);
     padding: 2rem;
     border-left: 4px solid var(--roxo);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .post-card__cabecalho {
@@ -273,6 +274,11 @@ main {
     color: #a8a3c4;
 }
 
+.post-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
 /*  ESTADOS DE FEEDBACK  */
 .form__erro {
     background-color: #fef2f2;
@@ -287,6 +293,12 @@ main {
 
 .form__erro.visivel {
     display: block;
+}
+
+#lista-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 /*  RESPONSIVIDADE  */

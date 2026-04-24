@@ -1,5 +1,3 @@
-// main.js — PostFlow (versão melhorada)
-
 // ======================
 // CONFIG
 // ======================
@@ -8,76 +6,100 @@ const API_URL = 'https://jsonplaceholder.typicode.com/posts';
 // ======================
 // SELETORES
 // ======================
-
-// Formulário
 const formPost = document.querySelector('#form-post');
-
-// Inputs
 const inputTitulo = document.querySelector('#input-titulo');
 const inputConteudo = document.querySelector('#input-conteudo');
-
-// Botão
 const btnPublicar = document.querySelector('#btn-publicar');
 
-// Renderização
 const secaoPost = document.querySelector('#secao-post');
-const renderizadorTitulo = document.querySelector('#renderizador-titulo');
-const renderizadorConteudo = document.querySelector('#renderizador-conteudo');
-const renderizadorId = document.querySelector('#renderizador-id');
+const listaPosts = document.querySelector('#lista-posts');
 
-// Erro
 const formErro = document.querySelector('#form-erro');
 
 // ======================
-// FUNÇÕES AUXILIARES
+// STORAGE
 // ======================
+function salvarNoLocalStorage(posts) {
+    localStorage.setItem('posts', JSON.stringify(posts));
+}
 
-// Mostrar erro
+function obterPosts() {
+    return JSON.parse(localStorage.getItem('posts')) || [];
+}
+
+// ======================
+// UI
+// ======================
 function mostrarErro(msg) {
     formErro.textContent = msg;
     formErro.classList.add('visivel');
 }
 
-// Esconder erro
 function esconderErro() {
     formErro.textContent = '';
     formErro.classList.remove('visivel');
 }
 
-// Loading botão
 function setLoading(isLoading) {
-    if (isLoading) {
-        btnPublicar.disabled = true;
-        btnPublicar.textContent = 'Publicando...';
-    } else {
-        btnPublicar.disabled = false;
-        btnPublicar.textContent = 'Publicar post';
+    btnPublicar.disabled = isLoading;
+    btnPublicar.textContent = isLoading ? 'Publicando...' : 'Publicar post';
+}
+
+// ======================
+// RENDER
+// ======================
+function criarPostHTML(post) {
+    return `
+        <div class="post-card">
+            <div class="post-card__cabecalho">
+                <span class="post-card__badge">✦ Publicado</span>
+            </div>
+
+            <h2 class="post-card__titulo">${post.title}</h2>
+            <p class="post-card__conteudo">${post.body}</p>
+
+            <footer class="post-card__rodape">
+                <span class="post-card__meta">
+                    Post ID: ${post.id}
+                </span>
+            </footer>
+        </div>
+    `;
+}
+
+function renderizarPosts() {
+    const posts = obterPosts();
+
+    if (posts.length === 0) {
+        secaoPost.setAttribute('hidden', true);
+        return;
     }
+
+    secaoPost.removeAttribute('hidden');
+
+    const htmlPosts = posts
+        .map((post) => criarPostHTML(post))
+        .join('');
+
+    listaPosts.innerHTML = htmlPosts;
 }
 
 // ======================
 // EVENTO SUBMIT
 // ======================
-
 formPost.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     esconderErro();
 
-    // ======================
-    // VALIDAÇÃO
-    // ======================
     const titulo = inputTitulo.value.trim();
     const conteudo = inputConteudo.value.trim();
 
     if (!titulo || !conteudo) {
-        mostrarErro('Preencha todos os campos antes de publicar.');
+        mostrarErro('Preencha todos os campos!');
         return;
     }
 
-    // ======================
-    // OBJETO DA API
-    // ======================
     const data = {
         title: titulo,
         body: conteudo,
@@ -87,9 +109,6 @@ formPost.addEventListener('submit', async (e) => {
     try {
         setLoading(true);
 
-        // ======================
-        // FETCH
-        // ======================
         const response = await fetch(API_URL, {
             method: 'POST',
             body: JSON.stringify(data),
@@ -98,35 +117,33 @@ formPost.addEventListener('submit', async (e) => {
             },
         });
 
-        // Verifica erro HTTP
-        if (!response.ok) {
-            throw new Error('Erro na requisição');
-        }
-
-        const postRetornado = await response.json();
+        const novoPost = await response.json();
 
         // ======================
-        // RENDERIZAÇÃO
+        // SALVAR
         // ======================
-        renderizadorTitulo.textContent = postRetornado.title;
-        renderizadorConteudo.textContent = postRetornado.body;
-        renderizadorId.textContent = `Post ID: ${postRetornado.id} · publicado com sucesso`;
+        const posts = obterPosts();
+        posts.unshift(novoPost); // adiciona no topo
 
-        secaoPost.removeAttribute('hidden');
+        salvarNoLocalStorage(posts);
 
-        // Scroll suave
-        secaoPost.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-        });
+        // ======================
+        // RENDER
+        // ======================
+        renderizarPosts();
 
-        // Limpa formulário
         formPost.reset();
 
+        secaoPost.scrollIntoView({ behavior: 'smooth' });
+
     } catch (erro) {
-        console.error(erro);
-        mostrarErro('Erro ao publicar. Tente novamente.');
+        mostrarErro('Erro ao publicar.');
     } finally {
         setLoading(false);
     }
 });
+
+// ======================
+// INICIALIZAÇÃO
+// ======================
+renderizarPosts();
