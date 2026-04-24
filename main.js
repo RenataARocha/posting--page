@@ -20,18 +20,45 @@ const renderizadorTitulo = document.querySelector('#renderizador-titulo');
 const renderizadorConteudo = document.querySelector('#renderizador-conteudo');
 const renderizadorId = document.querySelector('#renderizador-id');
 
-// Mensagem de erro
-const formErro = document.querySelector('#form-erro');
-
 // 
 // EVENTO DE SUBMIT
 // 
 formPost.addEventListener('submit', (e) => {
-    e.preventDefault(); // impede o comportamento padrão do formulário (recarregar a página)
+    e.preventDefault();
 
-    console.log('Formulário enviado!');
-    console.log('Título:', inputTitulo.value);
-    console.log('Conteúdo:', inputConteudo.value);
+    // Monta o objeto conforme a API espera
+    const data = {
+        title: inputTitulo.value,
+        body: inputConteudo.value,
+        userId: 1,
+    };
 
-    // Próximo commit: aqui entra o fetch
+    // 
+    // FETCH — POST na API
+    // 
+    fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        },
+    })
+        .then((response) => response.json())
+
+        .then((postRetornado) => {
+            // Renderiza o retorno da API na página
+            renderizadorTitulo.innerHTML = postRetornado.title;
+            renderizadorConteudo.innerHTML = postRetornado.body;
+            renderizadorId.innerHTML = `Post ID: ${postRetornado.id} · publicado com sucesso`;
+
+            // Exibe a seção de resultado
+            secaoPost.removeAttribute('hidden');
+
+            // Rola suavemente até o resultado
+            secaoPost.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        })
+
+        .catch((erro) => {
+            console.error('Erro ao publicar:', erro);
+        });
 });
