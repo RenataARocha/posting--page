@@ -1,64 +1,132 @@
-// main.js — PostFlow
+// main.js — PostFlow (versão melhorada)
 
-// 
+// ======================
+// CONFIG
+// ======================
+const API_URL = 'https://jsonplaceholder.typicode.com/posts';
+
+// ======================
 // SELETORES
-// 
+// ======================
 
 // Formulário
 const formPost = document.querySelector('#form-post');
 
-// Entrada de dados
+// Inputs
 const inputTitulo = document.querySelector('#input-titulo');
 const inputConteudo = document.querySelector('#input-conteudo');
 
-// Botão de publicar
+// Botão
 const btnPublicar = document.querySelector('#btn-publicar');
 
-// Saída — onde o post será renderizado
+// Renderização
 const secaoPost = document.querySelector('#secao-post');
 const renderizadorTitulo = document.querySelector('#renderizador-titulo');
 const renderizadorConteudo = document.querySelector('#renderizador-conteudo');
 const renderizadorId = document.querySelector('#renderizador-id');
 
-// 
-// EVENTO DE SUBMIT
-// 
-formPost.addEventListener('submit', (e) => {
+// Erro
+const formErro = document.querySelector('#form-erro');
+
+// ======================
+// FUNÇÕES AUXILIARES
+// ======================
+
+// Mostrar erro
+function mostrarErro(msg) {
+    formErro.textContent = msg;
+    formErro.classList.add('visivel');
+}
+
+// Esconder erro
+function esconderErro() {
+    formErro.textContent = '';
+    formErro.classList.remove('visivel');
+}
+
+// Loading botão
+function setLoading(isLoading) {
+    if (isLoading) {
+        btnPublicar.disabled = true;
+        btnPublicar.textContent = 'Publicando...';
+    } else {
+        btnPublicar.disabled = false;
+        btnPublicar.textContent = 'Publicar post';
+    }
+}
+
+// ======================
+// EVENTO SUBMIT
+// ======================
+
+formPost.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // Monta o objeto conforme a API espera
+    esconderErro();
+
+    // ======================
+    // VALIDAÇÃO
+    // ======================
+    const titulo = inputTitulo.value.trim();
+    const conteudo = inputConteudo.value.trim();
+
+    if (!titulo || !conteudo) {
+        mostrarErro('Preencha todos os campos antes de publicar.');
+        return;
+    }
+
+    // ======================
+    // OBJETO DA API
+    // ======================
     const data = {
-        title: inputTitulo.value,
-        body: inputConteudo.value,
+        title: titulo,
+        body: conteudo,
         userId: 1,
     };
 
-    // 
-    // FETCH — POST na API
-    // 
-    fetch('https://jsonplaceholder.typicode.com/posts', {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-        },
-    })
-        .then((response) => response.json())
+    try {
+        setLoading(true);
 
-        .then((postRetornado) => {
-            // Renderiza o retorno da API na página
-            renderizadorTitulo.innerHTML = postRetornado.title;
-            renderizadorConteudo.innerHTML = postRetornado.body;
-            renderizadorId.innerHTML = `Post ID: ${postRetornado.id} · publicado com sucesso`;
-
-            // Exibe a seção de resultado
-            secaoPost.removeAttribute('hidden');
-
-            // Rola suavemente até o resultado
-            secaoPost.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        })
-
-        .catch((erro) => {
-            console.error('Erro ao publicar:', erro);
+        // ======================
+        // FETCH
+        // ======================
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
         });
+
+        // Verifica erro HTTP
+        if (!response.ok) {
+            throw new Error('Erro na requisição');
+        }
+
+        const postRetornado = await response.json();
+
+        // ======================
+        // RENDERIZAÇÃO
+        // ======================
+        renderizadorTitulo.textContent = postRetornado.title;
+        renderizadorConteudo.textContent = postRetornado.body;
+        renderizadorId.textContent = `Post ID: ${postRetornado.id} · publicado com sucesso`;
+
+        secaoPost.removeAttribute('hidden');
+
+        // Scroll suave
+        secaoPost.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+        });
+
+        // Limpa formulário
+        formPost.reset();
+
+    } catch (erro) {
+        console.error(erro);
+        mostrarErro('Erro ao publicar. Tente novamente.');
+    } finally {
+        setLoading(false);
+    }
 });
